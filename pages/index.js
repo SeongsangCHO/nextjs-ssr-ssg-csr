@@ -3,16 +3,16 @@ import { useEffect, useState } from "react";
 import { fetchStoreApi } from "../pages/api/store";
 import ProductList from "../components/ProductList";
 
-export default function Home({ res }) {
-  const [products, setProducts] = useState([]);
+export default function Home({ res: products }) {
+  // const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const getStoreData = async () => {
-      const res = await fetchStoreApi();
-      setProducts(res);
-    };
-    getStoreData();
-  }, []);
+  // useEffect(() => {
+  //   const getStoreData = async () => {
+  //     const res = await fetchStoreApi();
+  //     setProducts(res);
+  //   };
+  //   getStoreData();
+  // }, []);
 
   return (
     <div>
@@ -20,6 +20,15 @@ export default function Home({ res }) {
       <ProductList products={products} />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const res = await fetchStoreApi();
+  return {
+    props: {
+      res,
+    },
+  };
 }
 
 // Home.getInitialProps = async () => {
