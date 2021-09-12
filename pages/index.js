@@ -1,18 +1,18 @@
 import Header from "../components/Header";
-import { useEffect, useState } from "react";
 import { fetchStoreApi } from "../pages/api/store";
 import ProductList from "../components/ProductList";
 
-export default function Home({ res }) {
-  const [products, setProducts] = useState([]);
+export default function Home({ products }) {
+  // const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const getStoreData = async () => {
-      const res = await fetchStoreApi();
-      setProducts(res);
-    };
-    getStoreData();
-  }, []);
+  // useEffect(() => {
+  //   const getStoreData = async () => {
+  //     const res = await fetchStoreApi();
+  //     setProducts(res);
+  //   };
+  //   getStoreData();
+  // }, []);
+  console.log(products);
 
   return (
     <div>
@@ -20,6 +20,14 @@ export default function Home({ res }) {
       <ProductList products={products} />
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const products = await fetchStoreApi();
+
+  return {
+    props: { products }, // will be passed to the page component as props
+  };
 }
 
 // Home.getInitialProps = async () => {

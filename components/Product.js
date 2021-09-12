@@ -5,17 +5,17 @@ import { fetchStoreApi } from "../pages/api/store";
 import styled from "styled-components";
 import Image from "next/image";
 
-const Product = ({ id }) => {
-  const [product, setProduct] = useState({});
-
-  useEffect(() => {
-    const getProductData = async () => {
-      if (!id) return;
-      const res = await fetchStoreApi(id);
-      setProduct(res);
-    };
-    getProductData();
-  }, [id]);
+const Product = ({ product }) => {
+  // const [product, setProduct] = useState({});
+  console.log("???모야", product);
+  // useEffect(() => {
+  //   const getProductData = async () => {
+  //     if (!id) return;
+  //     const res = await fetchStoreApi(id);
+  //     setProduct(res);
+  //   };
+  //   getProductData();
+  // }, [id]);
 
   return (
     <Wrapper>
@@ -28,12 +28,23 @@ const Product = ({ id }) => {
           alt="product image"
         />
       )}
-      <span>{product.title}</span>
+      <span>{product?.title}</span>
     </Wrapper>
   );
 };
 
 export default Product;
+
+// export async function getServerSideProps(context) {
+//   const { id } = context.query;
+//   const { params } = context;
+//   console.log(params, id, "id");
+//   const product = await fetchStoreApi(params.id);
+//   console.log("product", product);
+//   return {
+//     props: { product }, // will be passed to the page component as props
+//   };
+// }
 
 const Wrapper = styled.div`
   display: flex;
